@@ -128,4 +128,116 @@ section {
 }
 
 .gray {
-  background: #
+  background: #f9f9f9;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.section-header h2 {
+  font-size: 18px;
+}
+
+.section-header a {
+  color: #e66565;
+  font-size: 14px;
+}
+
+/* 공고 카드 */
+.recruit-card {
+  background: #f8f8f8;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+/* 인기 쇼호스트 */
+.host-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.host-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.host-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+/* 방송 후기 */
+.review-card {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* 문제 경험 섹션 */
+.problems {
+  background: #fff0f0;
+  padding: 24px 16px;
+}
+
+.problems h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.problems ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.problems li {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.problems .solution {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 하단 고정 탭바 */
+.fixed-tab {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  font-size: 12px;
+  z-index: 1000;
+}
+
+.fixed-tab div {
+  text-align: center;
+}
+
+.fixed-tab i {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 4px;
+}
