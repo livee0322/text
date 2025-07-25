@@ -2,73 +2,104 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>모집공고 리스트</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: sans-serif;
       background: #fff;
+      max-width: 100vw;
+      overflow-x: hidden;
       padding-bottom: 80px;
     }
     header {
       padding: 16px;
       font-size: 20px;
       font-weight: bold;
+      text-align: center;
       border-bottom: 1px solid #eee;
     }
-    .post {
+    .container {
+      padding: 20px;
+    }
+    .recruit-card {
+      background: #f9f9f9;
+      border-radius: 10px;
       padding: 16px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-    .post-title {
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-    .post-info {
+    .recruit-card p {
+      margin: 4px 0;
       font-size: 14px;
-      color: #555;
     }
     .write-btn {
-      position: fixed;
-      bottom: 90px;
-      right: 16px;
+      display: block;
+      width: 90%;
+      max-width: 400px;
+      margin: 0 auto 24px;
+      text-align: center;
+      padding: 14px;
       background: #ff6b6b;
       color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 30px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .fixed-tab {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 16px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+    .fixed-tab div {
       font-size: 14px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      cursor: pointer;
+      color: #333;
     }
   </style>
 </head>
 <body>
+
   <header>모집공고 리스트</header>
 
-  <div id="postList"></div>
-  <button class="write-btn" onclick="location.href='recruitment-write.html'">공고 작성</button>
+  <div class="container" id="recruitList"></div>
+
+  <!-- 공고 작성 버튼 -->
+  <a href="recruitment-write.html" class="write-btn">공고 작성</a>
+
+  <!-- 하단 탭바 -->
+  <div class="fixed-tab">
+    <div>홈</div>
+    <div>쇼핑라이브</div>
+    <div>구직</div>
+    <div>마이페이지</div>
+  </div>
 
   <script>
-    const postList = document.getElementById('postList');
-    const posts = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
+    const recruitList = document.getElementById('recruitList');
+    const recruitData = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
 
-    if (posts.length === 0) {
-      postList.innerHTML = '<p style="padding:16px; color:#999;">등록된 공고가 없습니다.</p>';
+    if (recruitData.length === 0) {
+      recruitList.innerHTML = '<p style="text-align:center; color:#999;">현재 등록된 공고가 없습니다.</p>';
     } else {
-      posts.forEach(post => {
+      recruitData.forEach(post => {
         const div = document.createElement('div');
-        div.className = 'post';
+        div.className = 'recruit-card';
         div.innerHTML = `
-          <div class="post-title">${post.title}</div>
-          <div class="post-info">${post.brand} | ${post.region} | ${post.gender} | 출연료: ${post.payment}${post.negotiable ? ' (협의가능)' : ''}</div>
+          <p><strong>${post.title}</strong></p>
+          <p>${post.brand} / ${post.region} / ${post.gender}</p>
+          <p>출연료: ${post.payment}${post.negotiable ? ' (협의 가능)' : ''}</p>
         `;
-        div.onclick = () => {
-          location.href = `recruitment-detail.html?id=${post.id}`;
-        };
-        postList.appendChild(div);
+        recruitList.appendChild(div);
       });
     }
   </script>
