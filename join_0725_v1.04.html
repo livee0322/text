@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>회원가입</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: sans-serif;
+      background: #fff;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .tab {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .tab label {
+      margin: 0 12px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .agree {
+      font-size: 14px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">Livee</div>
+
+  <div class="tab">
+    <label><input type="radio" name="userType" value="host" checked/> 쇼호스트</label>
+    <label><input type="radio" name="userType" value="brand"/> 업체</label>
+  </div>
+
+  <input type="text" placeholder="아이디"/>
+  <input type="password" placeholder="비밀번호"/>
+  <input type="password" placeholder="비밀번호 확인"/>
+  <input type="text" placeholder="이름"/>
+  <input type="text" placeholder="휴대폰 번호"/>
+  <input type="text" placeholder="닉네임 또는 상호명"/>
+  <input type="email" placeholder="이메일"/>
+
+  <button>휴대폰 본인인증</button>
+
+  <div class="agree">
+    <label><input type="checkbox"/> (필수) 이용약관에 동의합니다.</label><br/>
+    <label><input type="checkbox"/> (선택) 광고성 정보 수신에 동의합니다.</label>
+  </div>
+
+  <button>회원가입</button>
+
+</body>
+</html>
