@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>라이비 메인페이지</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: sans-serif;
@@ -13,6 +15,21 @@
       max-width: 100vw;
       overflow-x: hidden;
     }
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background: #fafafa;
+    }
+    .top-bar span {
+      cursor: pointer;
+    }
+    .top-bar .divider {
+      color: #ccc;
+    }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -20,18 +37,25 @@
       padding: 16px;
       background: white;
     }
-    .logo { font-size: 20px; font-weight: bold; }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
     .search {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .search input {
       padding: 8px 12px;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 14px;
     }
+
     .search button {
       background: black;
       color: white;
@@ -40,27 +64,34 @@
       padding: 8px;
       cursor: pointer;
     }
+
     .slider {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
     }
+
     .slider div {
       flex: none;
       scroll-snap-align: start;
       width: 100vw;
-      height: 600px;
+      height: 300px;
     }
+
     .slider .red { background: red; }
     .slider .orange { background: orange; }
     .slider .yellow { background: yellow; }
 
-    section { padding: 24px; }
+    section {
+      padding: 24px;
+    }
+
     h2 {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 12px;
     }
+
     .recruit-card, .host-card, .review-card {
       background: #f9f9f9;
       padding: 16px;
@@ -68,23 +99,27 @@
       margin-bottom: 12px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
+
     .host-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
+
     .host-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
+
     .host-card img {
       width: 80px;
       height: 80px;
       border-radius: 50%;
       margin-bottom: 8px;
     }
+
     .fixed-tab {
       position: fixed;
       bottom: 0;
@@ -93,21 +128,24 @@
       background: white;
       display: flex;
       justify-content: space-around;
-      padding: 32px 0;
+      padding: 16px 0;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
     }
+
     .fixed-tab div {
       font-size: 14px;
       color: #333;
     }
+
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
     }
+
     .section-header a {
       font-size: 14px;
       color: #ff6b6b;
@@ -116,6 +154,15 @@
   </style>
 </head>
 <body>
+
+  <!-- 상단 로그인/회원가입 -->
+  <div class="top-bar" id="auth-nav">
+    <span onclick="location.href='login_0725_v1.02.html'">로그인</span>
+    <span class="divider">|</span>
+    <span onclick="location.href='join_0725_v1.04.html'">회원가입</span>
+  </div>
+
+  <!-- 헤더 -->
   <header>
     <div class="logo">Livee</div>
     <div class="search">
@@ -123,11 +170,15 @@
       <button onclick="search()">🔍</button>
     </div>
   </header>
+
+  <!-- 슬라이더 -->
   <div class="slider">
     <div class="red"></div>
     <div class="orange"></div>
     <div class="yellow"></div>
   </div>
+
+  <!-- 모집 중인 쇼핑라이브 -->
   <section>
     <div class="section-header">
       <h2>모집 중인 쇼핑라이브</h2>
@@ -135,6 +186,8 @@
     </div>
     <div id="recruit-preview"></div>
   </section>
+
+  <!-- 인기 쇼호스트 -->
   <section style="background: #f7f7f7;">
     <h2>인기 쇼호스트</h2>
     <div class="host-grid">
@@ -152,22 +205,46 @@
       </div>
     </div>
   </section>
+
+  <!-- 방송 후기 -->
   <section>
     <h2>방송 후기</h2>
     <div class="review-card">🎤 쇼호스트 너무 잘하시고 즐거운 방송이었습니다!</div>
     <div class="review-card">🛍️ 제품이 잘 팔려서 다음에도 꼭 함께하고 싶어요.</div>
   </section>
+
+  <!-- 진행 중인 라이브 -->
   <section style="background: #f7f7f7;">
     <h2>진행 중인 라이브 방송</h2>
     <div class="review-card">현재 계약된 라이브 없음 – 제휴 문의 바랍니다.</div>
   </section>
+
+  <!-- 하단 탭바 -->
   <div class="fixed-tab">
     <div>홈</div>
     <div>쇼핑라이브</div>
     <div>구직</div>
     <div>마이페이지</div>
   </div>
+
   <script>
+    // 로그인 상태 처리
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const authNav = document.getElementById("auth-nav");
+
+    if (isLoggedIn) {
+      authNav.innerHTML = `
+        <span onclick="logout()">로그아웃</span>
+        <span class="divider">|</span>
+        <span onclick="location.href='mypage_0725_v1.01.html'">마이페이지</span>
+      `;
+    }
+
+    function logout() {
+      localStorage.setItem("isLoggedIn", "false");
+      location.reload();
+    }
+
     function search() {
       const val = document.getElementById('searchInput').value.trim();
       if (!val) {
@@ -176,8 +253,11 @@
         alert('검색 결과 없음');
       }
     }
+
+    // 모집공고 렌더링
     const recruitPreview = document.getElementById('recruit-preview');
     const recruitData = JSON.parse(localStorage.getItem('recruitPosts') || '[]').slice(0, 3);
+
     if (recruitData.length === 0) {
       recruitPreview.innerHTML = '<p style="color: #999;">현재 모집 중인 공고가 없습니다.</p>';
     } else {
@@ -193,5 +273,6 @@
       });
     }
   </script>
+
 </body>
 </html>
