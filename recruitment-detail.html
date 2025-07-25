@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>공고 상세</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      padding: 24px;
+      background: #fff;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .info {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #555;
+    }
+    .content {
+      font-size: 15px;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .btn {
+      margin-top: 32px;
+      display: block;
+      width: 100%;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">공고 제목</h1>
+  <div class="info" id="brand"></div>
+  <div class="info" id="region"></div>
+  <div class="info" id="gender"></div>
+  <div class="info" id="payment"></div>
+  <div class="content" id="content">공고 내용</div>
+  <button class="btn" onclick="handleApply()">지원하기</button>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    const posts = JSON.parse(localStorage.getItem("recruitPosts") || "[]");
+    const post = posts.find(p => String(p.id) === id);
+
+    if (!post) {
+      document.body.innerHTML = '<p style="padding: 24px; color: #999;">해당 공고를 찾을 수 없습니다.</p>';
+    } else {
+      document.getElementById("title").textContent = post.title;
+      document.getElementById("brand").textContent = `브랜드: ${post.brand}`;
+      document.getElementById("region").textContent = `지역: ${post.region}`;
+      document.getElementById("gender").textContent = `성별: ${post.gender}`;
+      document.getElementById("payment").textContent = `출연료: ${post.payment}${post.negotiable ? " (협의 가능)" : ""}`;
+      document.getElementById("content").textContent = post.content;
+    }
+
+    function handleApply() {
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        alert("로그인이 필요합니다.");
+        location.href = "login.html";
+        return;
+      }
+      alert("지원이 완료되었습니다!");
+    }
+  </script>
+</body>
+</html>
