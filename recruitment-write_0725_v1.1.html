@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>공고 작성</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      padding: 24px;
+      background: #fff;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin: 16px 0 6px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .submit-btn {
+      margin-top: 24px;
+      width: 100%;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>공고 작성</h1>
+
+  <label>브랜드명</label>
+  <input type="text" id="brand"/>
+
+  <label>지역</label>
+  <input type="text" id="region"/>
+
+  <label>성별</label>
+  <select id="gender">
+    <option value="무관">무관</option>
+    <option value="여성">여성</option>
+    <option value="남성">남성</option>
+  </select>
+
+  <label>출연료</label>
+  <div class="row">
+    <input type="number" id="payment"/>
+    <label><input type="checkbox" id="negotiable"/> 협의 가능</label>
+  </div>
+
+  <label>제목</label>
+  <input type="text" id="title"/>
+
+  <label>내용</label>
+  <textarea id="content"></textarea>
+
+  <button class="submit-btn" onclick="savePost()">작성 완료</button>
+
+  <script>
+    function savePost() {
+      const brand = document.getElementById('brand').value.trim();
+      const region = document.getElementById('region').value.trim();
+      const gender = document.getElementById('gender').value;
+      const payment = document.getElementById('payment').value.trim();
+      const negotiable = document.getElementById('negotiable').checked;
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+
+      if (!brand || !region || !payment || !title || !content) {
+        alert('모든 항목을 입력해주세요.');
+        return;
+      }
+
+      const posts = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
+      const newPost = {
+        id: Date.now(),
+        brand,
+        region,
+        gender,
+        payment,
+        negotiable,
+        title,
+        content
+      };
+      posts.unshift(newPost);
+      localStorage.setItem('recruitPosts', JSON.stringify(posts));
+      alert('등록되었습니다.');
+      location.href = 'recruitment.html';
+    }
+  </script>
+</body>
+</html>
