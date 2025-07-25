@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>로그인</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fff;
+      padding: 24px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .type-select {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .type-select label {
+      flex: 1;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .link {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">Livee</div>
+  <h2>로그인</h2>
+
+  <div class="type-select">
+    <label><input type="radio" name="userType" value="host" checked> 쇼호스트</label>
+    <label><input type="radio" name="userType" value="brand"> 업체</label>
+  </div>
+
+  <input type="text" id="id" placeholder="아이디"/>
+  <input type="password" id="pw" placeholder="비밀번호"/>
+  <button onclick="login()">로그인</button>
+
+  <div class="link">
+    <a href="join.html">회원가입</a>
+  </div>
+
+  <script>
+    function login() {
+      const id = document.getElementById('id').value.trim();
+      const pw = document.getElementById('pw').value.trim();
+      const type = document.querySelector('input[name="userType"]:checked').value;
+
+      if (!id || !pw) {
+        alert('아이디와 비밀번호를 입력해주세요.');
+        return;
+      }
+
+      const user = {
+        id,
+        type
+      };
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      alert(`${type === 'host' ? '쇼호스트' : '업체'} 로그인 완료`);
+      location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
