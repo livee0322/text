@@ -2,135 +2,111 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>공고 작성</title>
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
       font-family: sans-serif;
+      margin: 0;
+      padding: 0 16px 100px;
       background: #fff;
-      padding-bottom: 100px;
     }
-    header {
-      padding: 16px;
+    h2 {
       font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      border-bottom: 1px solid #eee;
+      margin: 24px 0;
     }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .input-group {
-      margin-bottom: 16px;
-    }
-    .input-group label {
+    label {
       display: block;
-      margin-bottom: 6px;
+      margin-top: 20px;
       font-weight: bold;
-      font-size: 14px;
     }
-    .input-group input,
-    .input-group textarea,
-    .input-group select {
+    input, textarea, select {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ccc;
+      margin-top: 8px;
+      border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 14px;
     }
     textarea {
+      height: 120px;
       resize: vertical;
-      min-height: 80px;
     }
-    .inline-group {
+    .row {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .inline-group input[type="number"] {
+    .row input[type="number"] {
       flex: 1;
+    }
+    .row label {
+      margin: 0;
     }
     .submit-btn {
       width: 100%;
+      margin-top: 32px;
       padding: 14px;
-      background: #ff6b6b;
-      color: white;
       font-size: 16px;
+      background: #ff6b6b;
+      color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 24px;
     }
   </style>
 </head>
 <body>
+  <h2>공고 작성</h2>
 
-  <header>공고 작성</header>
-  <div class="container">
-    <div class="input-group">
-      <label>제목</label>
-      <input type="text" id="title" />
-    </div>
+  <label>제목</label>
+  <input type="text" id="title" placeholder="공고 제목을 입력하세요" />
 
-    <div class="input-group">
-      <label>상호명</label>
-      <input type="text" id="brand" />
-    </div>
+  <label>내용</label>
+  <textarea id="content" placeholder="공고 내용을 입력하세요"></textarea>
 
-    <div class="input-group">
-      <label>지역</label>
-      <input type="text" id="region" />
-    </div>
+  <label>브랜드명</label>
+  <input type="text" id="brand" placeholder="브랜드명을 입력하세요" />
 
-    <div class="input-group">
-      <label>성별</label>
-      <select id="gender">
-        <option value="무관">무관</option>
-        <option value="여성">여성</option>
-        <option value="남성">남성</option>
-      </select>
-    </div>
+  <label>지역</label>
+  <input type="text" id="region" placeholder="지역명을 입력하세요" />
 
-    <div class="input-group">
-      <label>출연료</label>
-      <div class="inline-group">
-        <input type="number" id="payment" placeholder="숫자만 입력" />
-        <label><input type="checkbox" id="negotiable" /> 협의 가능</label>
-      </div>
-    </div>
+  <label>성별</label>
+  <select id="gender">
+    <option value="무관">무관</option>
+    <option value="여성">여성</option>
+    <option value="남성">남성</option>
+  </select>
 
-    <div class="input-group">
-      <label>내용</label>
-      <textarea id="content"></textarea>
-    </div>
-
-    <button class="submit-btn" onclick="savePost()">공고 등록</button>
+  <label>출연료</label>
+  <div class="row">
+    <input type="number" id="payment" placeholder="숫자만 입력" />
+    <label><input type="checkbox" id="negotiable" /> 협의 가능</label>
   </div>
 
+  <button class="submit-btn" onclick="submitPost()">공고 등록</button>
+
   <script>
-    function savePost() {
-      const post = {
-        title: document.getElementById('title').value,
-        brand: document.getElementById('brand').value,
-        region: document.getElementById('region').value,
-        gender: document.getElementById('gender').value,
-        payment: document.getElementById('payment').value,
-        negotiable: document.getElementById('negotiable').checked,
-        content: document.getElementById('content').value,
-      };
+    function submitPost() {
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const brand = document.getElementById('brand').value.trim();
+      const region = document.getElementById('region').value.trim();
+      const gender = document.getElementById('gender').value;
+      const payment = document.getElementById('payment').value.trim();
+      const negotiable = document.getElementById('negotiable').checked;
+
+      if (!title || !brand || !region || !payment) {
+        alert('필수 정보를 모두 입력해주세요.');
+        return;
+      }
 
       const posts = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
-      posts.unshift(post);
+      posts.push({ title, content, brand, region, gender, payment, negotiable });
       localStorage.setItem('recruitPosts', JSON.stringify(posts));
-
-      alert('공고가 등록되었습니다!');
-      location.href = 'recruitment.html';
+      alert('공고가 등록되었습니다.');
+      window.location.href = 'recruitment.html';
     }
   </script>
-
 </body>
 </html>
