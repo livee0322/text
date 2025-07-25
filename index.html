@@ -4,243 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>라이비 메인페이지</title>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #fff;
-      max-width: 100vw;
-      overflow-x: hidden;
-      padding-bottom: 80px;
-    }
-
-    /* 상단 네비게이션 */
-    .top-nav {
-      display: flex;
-      justify-content: flex-end;
-      padding: 8px 16px;
-      font-size: 14px;
-      gap: 12px;
-    }
-    .top-nav a {
-      text-decoration: none;
-      color: #333;
-    }
-    .divider {
-      border-left: 1px solid #ccc;
-      height: 12px;
-      align-self: center;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .search {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-      justify-content: flex-end;
-    }
-
-    .search input {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      width: 140px;
-    }
-
-    .search button {
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 10px;
-      cursor: pointer;
-    }
-
-    /* 감성 배너 */
-    .banner {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-    }
-
-    .banner-slide {
-      flex: none;
-      scroll-snap-align: start;
-      width: 100vw;
-      height: 240px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 24px;
-      color: white;
-    }
-
-    .banner-1 { background: #ff6b6b; }
-    .banner-2 { background: #ffa94d; }
-    .banner-3 { background: #74c0fc; }
-
-    .banner-slide small {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 6px;
-    }
-
-    .banner-slide h1 {
-      font-size: 22px;
-      margin: 0 0 6px;
-    }
-
-    .banner-slide p {
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-    section {
-      padding: 24px 16px;
-    }
-
-    h2 {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .section-header a {
-      font-size: 14px;
-      color: #ff6b6b;
-      text-decoration: none;
-    }
-
-    .recruit-card {
-      background: #f9f9f9;
-      padding: 16px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .host-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .host-card {
-      background: #f9f9f9;
-      padding: 16px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .host-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-bottom: 8px;
-    }
-
-    .review-card {
-      background: #f9f9f9;
-      padding: 16px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-
-    /* 하단 탭바 */
-    .fixed-tab {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 0 8px;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      z-index: 999;
-    }
-
-    .fixed-tab div {
-      font-size: 12px;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .fixed-tab i {
-      font-size: 20px;
-      margin-bottom: 2px;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
 
-  <!-- 상단 로그인/회원가입 -->
-  <div class="top-nav" id="authNav">
-    <a href="login_0725_v1.02.html">로그인</a>
-    <div class="divider"></div>
-    <a href="join_0725_v1.04.html">회원가입</a>
-  </div>
+  <!-- 공지 띠 배너 -->
+  <div class="notice-banner">현재 개발중입니다</div>
 
   <!-- 헤더 -->
   <header>
-    <div class="logo">Livee</div>
+    <div class="logo" onclick="location.href='index.html'">Livee</div>
+    <div class="auth-links">
+      <span id="loginLink" onclick="location.href='login_0725_v1.02.html'">로그인</span>
+      <span class="divider">|</span>
+      <span id="joinLink" onclick="location.href='join_0725_v1.04.html'">회원가입</span>
+    </div>
     <div class="search">
       <input type="text" id="searchInput" placeholder="검색어 입력" />
-      <button onclick="search()"><i class="ri-search-line"></i></button>
+      <button onclick="search()">
+        <i class="ri-search-line"></i>
+      </button>
     </div>
   </header>
 
-  <!-- 배너 -->
-  <div class="banner">
-    <div class="banner-slide banner-1">
-      <small>#라이브커머스</small>
-      <h1>지금 쇼핑라이브를 모집해보세요</h1>
-      <p>전문 쇼호스트들과 함께 시작해보세요</p>
+  <!-- 슬라이딩 배너 -->
+  <div class="slider">
+    <div class="slide red">
+      <div class="slide-text">
+        <p class="subtitle">라이브 커머스의 새로운 시작</p>
+        <h1 class="title">지금, 쇼핑라이브를<br>시작해보세요</h1>
+        <p class="desc">검증된 쇼호스트와 브랜드를 연결합니다</p>
+      </div>
     </div>
-    <div class="banner-slide banner-2">
-      <small>#브랜드전용</small>
-      <h1>브랜드가 원하는 조건으로</h1>
-      <p>경력별, 성격별 다양한 쇼호스트 매칭</p>
+    <div class="slide orange">
+      <div class="slide-text">
+        <p class="subtitle">섭외가 고민이라면</p>
+        <h1 class="title">섭외공고 등록하고<br>지원 받아보세요</h1>
+        <p class="desc">수익은 공유하고, 과정은 간편하게</p>
+      </div>
     </div>
-    <div class="banner-slide banner-3">
-      <small>#리뷰보장</small>
-      <h1>후기도 놓치지 마세요</h1>
-      <p>방송 후기는 플랫폼에서 한눈에 확인</p>
+    <div class="slide yellow">
+      <div class="slide-text">
+        <p class="subtitle">쇼호스트라면</p>
+        <h1 class="title">나의 방송 경력으로<br>기회를 만들어보세요</h1>
+        <p class="desc">지금 바로 프로필을 등록하세요</p>
+      </div>
     </div>
   </div>
 
-  <!-- 모집공고 -->
+  <!-- 모집 중인 쇼핑라이브 -->
   <section>
     <div class="section-header">
       <h2>모집 중인 쇼핑라이브</h2>
@@ -249,8 +62,20 @@
     <div id="recruit-preview"></div>
   </section>
 
+  <!-- 이런 문제 겪어보셨나요? -->
+  <section class="problems">
+    <h2>이런 문제 겪어보셨나요?</h2>
+    <ul>
+      <li>📦 제품만 보내고 방송 내용은 전혀 공유되지 않았던 경험</li>
+      <li>💰 방송 후 정산이 제대로 되지 않아 곤란했던 경험</li>
+      <li>⏰ 촬영 시간 초과, 무리한 요구로 힘들었던 경험</li>
+      <li>📩 DM이나 지인 추천으로만 섭외가 이루어졌던 불편함</li>
+    </ul>
+    <p class="solution">그래서 <strong>라이비</strong>가 필요합니다.<br />검증된 쇼호스트와 브랜드를 안전하게 연결합니다.</p>
+  </section>
+
   <!-- 인기 쇼호스트 -->
-  <section style="background: #f7f7f7;">
+  <section class="gray">
     <h2>인기 쇼호스트</h2>
     <div class="host-grid">
       <div class="host-card">
@@ -272,48 +97,35 @@
   <section>
     <h2>방송 후기</h2>
     <div class="review-card">🎤 쇼호스트 너무 잘하시고 즐거운 방송이었습니다!</div>
-    <div class="review-card" style="background: #eee;">🛍️ 제품이 잘 팔려서 다음에도 꼭 함께하고 싶어요.</div>
+    <div class="review-card">🛍️ 제품이 잘 팔려서 다음에도 꼭 함께하고 싶어요.</div>
   </section>
 
-  <!-- 라이브 방송 -->
-  <section style="background: #f7f7f7;">
+  <!-- 진행 중인 라이브 방송 -->
+  <section class="gray">
     <h2>진행 중인 라이브 방송</h2>
     <div class="review-card">현재 계약된 라이브 없음 – 제휴 문의 바랍니다.</div>
   </section>
 
   <!-- 하단 탭바 -->
   <div class="fixed-tab">
-    <div><i class="ri-home-4-line"></i>홈</div>
-    <div><i class="ri-tv-line"></i>쇼핑라이브</div>
-    <div><i class="ri-user-search-line"></i>구직</div>
-    <div><i class="ri-user-line"></i>마이페이지</div>
+    <div><i class="ri-home-4-line"></i><br />홈</div>
+    <div><i class="ri-tv-line"></i><br />쇼핑라이브</div>
+    <div><i class="ri-user-search-line"></i><br />구직</div>
+    <div><i class="ri-user-line"></i><br />마이페이지</div>
   </div>
 
   <script>
-    // 검색 기능
     function search() {
-      const val = document.getElementById("searchInput").value.trim();
+      const val = document.getElementById('searchInput').value.trim();
       if (!val) {
-        alert("검색어를 입력해주세요.");
+        alert('검색어를 입력해주세요.');
       } else {
-        alert("검색 결과 없음");
+        alert('검색 결과 없음');
       }
     }
 
-    // 로그인 상태 반영
-    const authNav = document.getElementById("authNav");
-    const isLogin = localStorage.getItem("isLogin") === "true";
-    if (isLogin) {
-      authNav.innerHTML = `
-        <a href="#">로그아웃</a>
-        <div class="divider"></div>
-        <a href="mypage_0725.html">마이페이지</a>
-      `;
-    }
-
-    // 모집공고 렌더링
-    const recruitPreview = document.getElementById("recruit-preview");
-    const recruitData = JSON.parse(localStorage.getItem("recruitPosts") || "[]").slice(0, 3);
+    const recruitPreview = document.getElementById('recruit-preview');
+    const recruitData = JSON.parse(localStorage.getItem('recruitPosts') || '[]').slice(0, 3);
 
     if (recruitData.length === 0) {
       recruitPreview.innerHTML = '<p style="color: #999;">현재 모집 중인 공고가 없습니다.</p>';
@@ -328,6 +140,18 @@
         `;
         recruitPreview.appendChild(div);
       });
+    }
+
+    // 로그인 상태 반영
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isLoggedIn) {
+      document.getElementById('loginLink').innerText = '로그아웃';
+      document.getElementById('loginLink').onclick = () => {
+        localStorage.setItem('isLoggedIn', 'false');
+        location.reload();
+      };
+      document.getElementById('joinLink').innerText = '마이페이지';
+      document.getElementById('joinLink').onclick = () => location.href = 'mypage_0725.html';
     }
   </script>
 </body>
