@@ -3,132 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>공고 작성</title>
+  <title>모집공고 리스트</title>
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: sans-serif;
       background: #fff;
-      padding-bottom: 100px;
+      max-width: 100vw;
+      overflow-x: hidden;
+      padding-bottom: 80px;
     }
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 16px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
+      background: #fff;
       border-bottom: 1px solid #eee;
     }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .input-group {
-      margin-bottom: 16px;
-    }
-    .input-group label {
-      display: block;
-      margin-bottom: 6px;
+    .logo {
+      font-size: 20px;
       font-weight: bold;
-      font-size: 14px;
+      cursor: pointer;
     }
-    .input-group input,
-    .input-group textarea,
-    .input-group select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    .inline-group {
+    .fixed-tab {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      justify-content: space-around;
+      padding: 16px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
     }
-    .inline-group input[type="number"] {
-      flex: 1;
+    .fixed-tab div {
+      font-size: 14px;
+      color: #333;
     }
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
+    section {
+      padding: 24px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .recruit-card {
+      background: #f9f9f9;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .write-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 16px;
+      padding: 12px 20px;
       background: #ff6b6b;
       color: white;
-      font-size: 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 30px;
+      font-size: 14px;
       cursor: pointer;
-      margin-top: 24px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
 
-  <header>공고 작성</header>
-  <div class="container">
-    <div class="input-group">
-      <label>제목</label>
-      <input type="text" id="title" />
-    </div>
+  <!-- 헤더 -->
+  <header>
+    <div class="logo" onclick="location.href='index_0725_v1.08.html'">Livee</div>
+    <div></div>
+  </header>
 
-    <div class="input-group">
-      <label>상호명</label>
-      <input type="text" id="brand" />
-    </div>
+  <!-- 본문 -->
+  <section>
+    <h2>모집 중인 쇼핑라이브 공고</h2>
+    <div id="recruit-list"></div>
+  </section>
 
-    <div class="input-group">
-      <label>지역</label>
-      <input type="text" id="region" />
-    </div>
+  <!-- 공고 작성 버튼 -->
+  <button class="write-btn" onclick="location.href='recruitment-write.html'">공고 작성</button>
 
-    <div class="input-group">
-      <label>성별</label>
-      <select id="gender">
-        <option value="무관">무관</option>
-        <option value="여성">여성</option>
-        <option value="남성">남성</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label>출연료</label>
-      <div class="inline-group">
-        <input type="number" id="payment" placeholder="숫자만 입력" />
-        <label><input type="checkbox" id="negotiable" /> 협의 가능</label>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <label>내용</label>
-      <textarea id="content"></textarea>
-    </div>
-
-    <button class="submit-btn" onclick="savePost()">공고 등록</button>
+  <!-- 하단 탭바 -->
+  <div class="fixed-tab">
+    <div onclick="location.href='index_0725_v1.08.html'">홈</div>
+    <div>쇼핑라이브</div>
+    <div>구직</div>
+    <div onclick="location.href='mypage.html'">마이페이지</div>
   </div>
 
+  <!-- 스크립트 -->
   <script>
-    function savePost() {
-      const post = {
-        title: document.getElementById('title').value,
-        brand: document.getElementById('brand').value,
-        region: document.getElementById('region').value,
-        gender: document.getElementById('gender').value,
-        payment: document.getElementById('payment').value,
-        negotiable: document.getElementById('negotiable').checked,
-        content: document.getElementById('content').value,
-      };
+    const list = document.getElementById('recruit-list');
+    const posts = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
 
-      const posts = JSON.parse(localStorage.getItem('recruitPosts') || '[]');
-      posts.unshift(post);
-      localStorage.setItem('recruitPosts', JSON.stringify(posts));
+    if (posts.length === 0) {
+      list.innerHTML = '<p style="color:#999;">현재 등록된 공고가 없습니다.</p>';
+    } else {
+      posts.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'recruit-card';
+        div.innerHTML = `
+          <p style="font-weight: bold; margin: 0 0 6px;">${post.title}</p>
+          <p style="margin: 4px 0; font-size: 14px;"><strong>${post.brand}</strong> / ${post.region} / ${post.gender}</p>
+          <p style="margin: 4px 0; font-size: 14px;">출연료: ${post.payment}${post.negotiable ? ' (협의 가능)' : ''}</p>
+          <button onclick="goToDetail('${post.id}')" style="margin-top: 8px;">상세 보기</button>
+        `;
+        list.appendChild(div);
+      });
+    }
 
-      alert('공고가 등록되었습니다!');
-      location.href = 'recruitment.html';
+    function goToDetail(id) {
+      localStorage.setItem('selectedRecruitId', id);
+      location.href = 'recruitment-detail.html';
     }
   </script>
 
