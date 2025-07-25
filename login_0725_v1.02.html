@@ -1,96 +1,174 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>로그인</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: sans-serif;
       background: #fff;
-      padding: 24px;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
     .logo {
+      text-align: center;
       font-size: 24px;
       font-weight: bold;
-      text-align: center;
       margin-bottom: 24px;
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    .type-select {
+    .tabs {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       margin-bottom: 16px;
     }
-    .type-select label {
+    .tab {
       flex: 1;
       text-align: center;
+      padding: 12px;
+      border: 1px solid #ccc;
+      cursor: pointer;
     }
-    button {
-      width: 100%;
+    .tab.active {
       background: #ff6b6b;
       color: white;
-      border: none;
-      padding: 14px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+      font-weight: bold;
+    }
+    .input-box {
       margin-bottom: 16px;
     }
-    .link {
-      text-align: center;
+    .input-box input {
+      width: 100%;
+      padding: 12px;
       font-size: 14px;
-      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      background: #ccc;
+      color: #fff;
+    }
+    .login-btn.active {
+      background: #ff6b6b;
+    }
+    .options {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+    .social {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .social button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .social .naver { background: #2db400; color: white; }
+    .social .apple { background: #000; color: white; }
+    .join-btn {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ff6b6b;
+      background: white;
+      color: #ff6b6b;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="logo">Livee</div>
-  <h2>로그인</h2>
+  <div class="container">
+    <div class="logo">Livee</div>
 
-  <div class="type-select">
-    <label><input type="radio" name="userType" value="host" checked> 쇼호스트</label>
-    <label><input type="radio" name="userType" value="brand"> 업체</label>
-  </div>
+    <div class="tabs">
+      <div class="tab active" id="hostTab" onclick="selectTab('host')">쇼호스트</div>
+      <div class="tab" id="brandTab" onclick="selectTab('brand')">업체</div>
+    </div>
 
-  <input type="text" id="id" placeholder="아이디"/>
-  <input type="password" id="pw" placeholder="비밀번호"/>
-  <button onclick="login()">로그인</button>
+    <div class="input-box">
+      <input type="text" id="userId" placeholder="아이디" />
+    </div>
+    <div class="input-box">
+      <input type="password" id="userPw" placeholder="비밀번호" />
+    </div>
 
-  <div class="link">
-    <a href="join.html">회원가입</a>
+    <button class="login-btn" id="loginBtn" onclick="login()" disabled>로그인</button>
+
+    <div class="options">
+      <label><input type="checkbox" id="autoLogin" /> 자동 로그인</label>
+      <div>
+        <a href="#">아이디 찾기</a> · <a href="#">비밀번호 찾기</a>
+      </div>
+    </div>
+
+    <div class="social">
+      <button class="naver">네이버로 로그인</button>
+      <button class="apple">Apple로 로그인</button>
+    </div>
+
+    <button class="join-btn" onclick="location.href='join_0725_v1.04.html'">회원가입</button>
   </div>
 
   <script>
-    function login() {
-      const id = document.getElementById('id').value.trim();
-      const pw = document.getElementById('pw').value.trim();
-      const type = document.querySelector('input[name="userType"]:checked').value;
+    let selectedType = 'host';
 
+    function selectTab(type) {
+      selectedType = type;
+      document.getElementById('hostTab').classList.toggle('active', type === 'host');
+      document.getElementById('brandTab').classList.toggle('active', type === 'brand');
+    }
+
+    function login() {
+      const id = document.getElementById('userId').value.trim();
+      const pw = document.getElementById('userPw').value.trim();
       if (!id || !pw) {
         alert('아이디와 비밀번호를 입력해주세요.');
         return;
       }
+      localStorage.setItem('loggedIn', 'true');
+      localStorage.setItem('userType', selectedType);
+      alert('로그인 성공');
+      location.href = 'index_0725_v1.11.html'; // 또는 메인페이지 경로
+    }
 
-      const user = {
-        id,
-        type
-      };
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      alert(`${type === 'host' ? '쇼호스트' : '업체'} 로그인 완료`);
-      location.href = 'index.html';
+    // 입력 감지해서 버튼 활성화
+    document.getElementById('userId').addEventListener('input', checkInputs);
+    document.getElementById('userPw').addEventListener('input', checkInputs);
+
+    function checkInputs() {
+      const id = document.getElementById('userId').value.trim();
+      const pw = document.getElementById('userPw').value.trim();
+      const btn = document.getElementById('loginBtn');
+      if (id && pw) {
+        btn.classList.add('active');
+        btn.disabled = false;
+      } else {
+        btn.classList.remove('active');
+        btn.disabled = true;
+      }
     }
   </script>
 </body>
